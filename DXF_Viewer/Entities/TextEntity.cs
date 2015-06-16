@@ -33,8 +33,7 @@ namespace DXF_Viewer
 
         public TextEntity(Schematic drawing, Viewer topLevelViewer)
             : base(drawing, topLevelViewer)
-        {
-        }
+        { }
 
         public override Path draw()
         {
@@ -47,10 +46,10 @@ namespace DXF_Viewer
             path.Fill = new SolidColorBrush(ViewerHelper.getColor(layer.lineColor));
             path.StrokeThickness = Math.Abs(this.parent.header.yMin) > 400 ? 0.2 : 0.01;
 
-            FormattedText text = new FormattedText(this.text, CultureInfo.CurrentCulture, FlowDirection.LeftToRight, new Typeface(this.styleName), .05 + this.size * (96/72), Brushes.White);
+            FormattedText text = new FormattedText(this.text, CultureInfo.CurrentCulture, FlowDirection.LeftToRight, new Typeface(style.getFontFamily()), .05 + this.size * (96/72), Brushes.White);
 
             //set font according to style
-            text.SetFontFamily(style.getFontFamily());
+            //text.SetFontFamily(style.getFontFamily());
             
             //Adjust for difference in WPF text origin (top left) and DXF origin (bottom left)
             start.Y += text.Baseline;

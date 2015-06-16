@@ -94,7 +94,8 @@ namespace DXF_Viewer
                 //if the entity is an mtext entity it will get the mtext path and make entity path equal that path
                 if (shapeList[j] == "MTEXT")
                 {
-                    EntityPath = mtext.getInfo(shapeList, layerListIn, height, minX, minY, xOffsetIn, yOffsetIn);
+                    //EntityPath = mtext.getInfo(shapeList, layerListIn, height, minX, minY, xOffsetIn, yOffsetIn);
+                    EntityPath = new MTextEntity(drawing, topLevelViewer).parse(shapeList).draw();
                     j++;
                 }
                 //if the entity is a point it will get the point path and make entity path equal that path

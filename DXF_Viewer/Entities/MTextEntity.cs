@@ -10,14 +10,17 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using DXF.Extensions;
 using DXF.GeneralInformation;
+using DXF.Entities;
+using DXF.Util;
 
 namespace DXF_Viewer
 {
-    class MTextEntity : Entity_Old
+    class MTextEntity : Entity
     {
-
+        string styleName = "STANDARD";
         string text = "";
         Point anchor = new Point(0, 0);
+        Point end = new Point(0, 0);
         double size = 1;
         double rectangleWidth = 10;
         double rectangleHeight = 10;
@@ -25,119 +28,57 @@ namespace DXF_Viewer
         double angle = 0;
         DrawingStyle style;
 
+        public MTextEntity()
+        { }
+        
+        public MTextEntity(Schematic drawing, Viewer topLevelViewer)
+            : base (drawing, topLevelViewer)
+        { }
 
-
-
-        /// <summary>
-        /// Gets and sets the Path of the entity Mtext which is multiple lines of text
-        /// </summary>
-        /// <param name="listIn"> a list of strings which includes all the data for the mtext entity</param>
-        /// <param name="layerList"> a list of layer information that includes line type and line color</param>
-        /// <param name="xOffsetIn">if this entity is part of a block the x coordinate offset value</param>
-        /// <param name="yOffsetIn">if this entity is part of a block the y coordinate offset value</param>
-        /// <returns></returns>
-        public Path getInfo(List<String> listIn, List<LayerInfo_dep> layerList, double height, double minX, double minY, double xOffsetIn, double yOffsetIn)
+        public override Entity parse(List<string> section)
         {
+            gatherCodes(section);
+            getCommonCodes();
 
-            double pointX = 0;
-            double pointY = 0;
-            double size = 0;
-            double rotation = 0;
-            double vectorX = 0;
-            double vectorY = 0;
-            int justification = 0;
-            int lineColor = 0;
-            String text = null;
-            String layerName = "0";
-            double rotate = 0;
+            styleName = getCode("  7", styleName);
+            style = new DrawingStyle(parent.styles[styleName]);
 
-            j++;
+            text = getCode("  1", text);
 
-            while (j <= listIn.Count - 1)
-            {
-                //The x coordinate of the start Point
-                if (listIn[j] == " 10")
-                {
-                    pointX = listIn[++j].ConvertToDoubleWithCulture();
-                }
-                //The y coordinate of the start Point
-                else if (listIn[j] == " 20")
-                {
-                    pointY = listIn[++j].ConvertToDoubleWithCulture();
-                }
-                //The x coordinate of the End point
-                else if (listIn[j] == " 11")
-                {
-                    vectorX = listIn[++j].ConvertToDoubleWithCulture();
-                }
-                //The y coordinate of the End point
-                else if (listIn[j] == " 21")
-                {
-                    vectorY = listIn[++j].ConvertToDoubleWithCulture();
-                    //the rotation of the mtext entity 
-                    rotation = Math.Atan2(vectorY, vectorX);
-                }
-                //The actual text that is to be used 
-                else if (listIn[j] == "  1")
-                {
-                    text = listIn[++j];                        
-                }
-                //The size of the text that is to be written
-                else if (listIn[j] == " 40")
-                {
-                    size = listIn[++j].ConvertToDoubleWithCulture();
-                }
-                //The rotation of the text
-                else if (listIn[j] == " 50")
-                {
-                    rotate = listIn[++j].ConvertToDoubleWithCulture();
-                }
-                //The color of the mtext entity
-                else if (listIn[j] == " 62")
-                {
-                    lineColor = Convert.ToInt32(listIn[++j]);
-                }
-                //The name of the layer to be used 
-                else if (listIn[j] == "  8")
-                {
-                    layerName = listIn[++j];
-                }
-                //This determines the drawing direction
-                else if (listIn[j] == " 72")
-                {
-                    //Top to bottom
-                    if (listIn[++j] == "1")
-                    {
-                        justification = 2;
-                    }
-                    //By style
-                    else if (listIn[j] == "2")
-                    {
-                        justification = 3;
-                    }
-                    //Left to right
-                    else
-                    {
-                        justification = 1;
-                    }
-                }
-                else if (listIn[j] == "ROTATION")
-                {
-                    rotation = listIn[++j].ConvertToDoubleWithCulture();
-                }
-                else if (listIn[j] == "OFFSET")
-                {
-                    xOffsetIn = listIn[++j].ConvertToDoubleWithCulture();
-                    yOffsetIn = listIn[++j].ConvertToDoubleWithCulture();
-                }
-                else if (listIn[j] == "  0")
-                    break;
+            anchor.X = getCode(" 10", anchor.X);
+            anchor.Y = getCode(" 20", anchor.Y);
+            end.X = getCode(" 11", end.X);
+            end.Y = getCode(" 21", end.Y);
+            size = getCode(" 40", size);
 
-                j++;
-            }
+            charWidth = getCode(" 42", charWidth);
+            rectangleWidth = getCode(" 41", rectangleWidth);
+            rectangleHeight = getCode(" 43", rectangleHeight);
+            angle = getCode(" 50", angle);
 
-            return buildMText(pointX, pointY, size, text, justification, rotation, lineColor, layerName, layerList, height, minX, minY, rotate, xOffsetIn, yOffsetIn);
+            return this;
+        }
 
+        public override Path draw()
+        {
+            Path path = new Path();
+
+            path.Stroke = new SolidColorBrush(ViewerHelper.getColor(layer.lineColor));
+            path.Fill = new SolidColorBrush(ViewerHelper.getColor(layer.lineColor));
+            path.StrokeThickness = Math.Abs(this.parent.header.yMin) > 400 ? 0.2 : 0.01;
+
+            FormattedText text = new FormattedText(ViewerHelper.swtichDXFSymbols(this.text), 
+                CultureInfo.CurrentCulture, 
+                FlowDirection.LeftToRight, 
+                new Typeface(style.getFontFamily()), 
+                size, 
+                new SolidColorBrush(ViewerHelper.getColor(layer.lineColor)));
+
+            text.MaxTextWidth = rectangleWidth;
+            Geometry geometry = text.BuildGeometry(ViewerHelper.mapToWPF(anchor, parent));
+            path.Data = geometry;
+
+            return path;
         }
 
         /// <summary>

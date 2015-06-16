@@ -7,12 +7,33 @@ using System.Windows.Shapes;
 using System.Windows;
 using System.Windows.Media;
 using DXF.Extensions;
-
+using DXF.Entities;
+using DXF.GeneralInformation;
 
 namespace DXF_Viewer
 {
-    class LwPolylineEntity : Entity_Old
+    class LwPolylineEntity : Entity
     {
+
+        public LwPolylineEntity ()
+        { }
+
+        public LwPolylineEntity (Schematic drawing, Viewer viewer)
+            : base(drawing, viewer)
+        { }
+
+        public override Entity parse(List<string> section)
+        {
+            gatherCodesAllowMultiples(section);
+
+            return this;
+        }
+
+        public override Path draw()
+        {
+            Path path = new Path();
+            return path;
+        }
 
         public struct WindowInfo
         {
@@ -63,6 +84,7 @@ namespace DXF_Viewer
             //add an indentifier to the end of the list
             listIn.Add("  0");
             //iterates until the start of the polyline information
+            int j = 0;
             while (listIn[i] != " 90")
             {
                 if (listIn[i] == "ROTATION")

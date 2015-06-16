@@ -69,6 +69,7 @@ namespace DXF.Util
             text = text.Replace("%%p", "±");
             text = text.Replace(@"\U+00B1", "±");
 
+            text = text.Replace(@"\P", Environment.NewLine);
 
             //This is to replace the bad alt-code insertions of degree symbols in some schematics.
             //The CAD standard is "%%D" but some schematics have the degree symbol inserted with copy/paste.

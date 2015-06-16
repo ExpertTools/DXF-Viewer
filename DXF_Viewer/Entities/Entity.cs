@@ -29,6 +29,12 @@ namespace DXF.Entities
                     return new TextEntity(parent, viewer).parse(section);
                 case "SOLID":
                     return new SolidEntity(parent, viewer).parse(section);
+                case "MTEXT":
+                    return new MTextEntity(parent, viewer).parse(section);
+                case "LWPOLYLINE":
+                    return new LwPolylineEntity(parent, viewer).parse(section);
+                case "POLYLINE":
+                    return new LwPolylineEntity(parent, viewer).parse(section);
                 default:
                     throw new EntityNotSupportedException();
             }
@@ -43,6 +49,7 @@ namespace DXF.Entities
 
         //Experimental
         public Dictionary<string, string> groupCode = new Dictionary<string, string>();
+        public Dictionary<string, List<string>> groupCodeMultiples = new Dictionary<string, List<string>>();
         public Layer layer = new Layer();
         public string layerName = "0";
 
@@ -75,6 +82,46 @@ namespace DXF.Entities
                 if (section[i + 1].Equals("  0")) break;
             }
             return this;
+        }
+
+        public Entity gatherCodesAllowMultiples(List<string> section)
+        {
+            int i = 0;
+            while(true)
+            {
+                string code = section[++i];
+                string value = section[++i];
+                if (!groupCodeMultiples.ContainsKey(code))
+                {
+                    List<string> valueList = new List<string>();
+                    valueList.Add(value);
+                    groupCodeMultiples.Add(code, valueList);
+                }
+                else
+                {
+                    groupCodeMultiples[code].Add(value);
+                }
+                if (section[i + 1].Equals("  0")) break;
+            }
+            return this;
+        }
+
+        public List<double> getCodeM(string code, double defaultValue)
+        {
+            List<double> list = new List<double>();
+            if(groupCodeMultiples.ContainsKey(code))
+            {
+                foreach(string item in groupCodeMultiples[code])
+                {
+                    list.Add(item.ConvertToDoubleWithCulture());
+                }
+            }
+            else
+            {
+                list.Add(defaultValue);
+            }
+            
+            return list;
         }
 
         public string getCode(string code, string defaultValue)

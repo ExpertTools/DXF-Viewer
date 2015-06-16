@@ -7,12 +7,35 @@ using System.Windows;
 using System.Windows.Shapes;
 using System.Windows.Media;
 using DXF.Extensions;
-
+using DXF.Entities;
+using DXF.GeneralInformation;
 
 namespace DXF_Viewer
 {
-    class PolyLineEntity : Entity_Old
+    class PolyLineEntity : Entity
     {
+
+        public PolyLineEntity()
+        { }
+
+        public PolyLineEntity(Schematic drawing, Viewer topLevelViewer)
+            : base(drawing, topLevelViewer)
+        { }
+
+        public override Entity parse(List<string> section)
+        {
+            gatherCodes(section);
+            getCommonCodes();
+
+
+            return this;
+        }
+        public override Path draw()
+        {
+            Path path = new Path();
+            return path;
+        }
+
         /// <summary>
         /// Gets the Path for the polyline Entity 
         /// </summary>
@@ -40,7 +63,7 @@ namespace DXF_Viewer
             Boolean xChecked = false;
             double rotation = 0;
 
-
+            int j = 0;
             while (j <= listIn.Count - 1)
             {
 
