@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2013 for Windows Desktop
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DXF_Builder", "DXF_Builder\DXF_Builder.csproj", "{6E1883F4-C84E-469A-B161-A330FD99FD36}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DXF_Viewer", "DXF_Viewer\DXF_Viewer.csproj", "{ADE11389-7709-4631-A946-8539597E9865}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DXF_Consumer", "DXF_Consumer\DXF_Consumer.csproj", "{267010BC-53D3-4335-92B2-EFE4311EE657}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6E1883F4-C84E-469A-B161-A330FD99FD36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E1883F4-C84E-469A-B161-A330FD99FD36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E1883F4-C84E-469A-B161-A330FD99FD36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E1883F4-C84E-469A-B161-A330FD99FD36}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADE11389-7709-4631-A946-8539597E9865}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADE11389-7709-4631-A946-8539597E9865}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADE11389-7709-4631-A946-8539597E9865}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADE11389-7709-4631-A946-8539597E9865}.Release|Any CPU.Build.0 = Release|Any CPU
+		{267010BC-53D3-4335-92B2-EFE4311EE657}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{267010BC-53D3-4335-92B2-EFE4311EE657}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{267010BC-53D3-4335-92B2-EFE4311EE657}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{267010BC-53D3-4335-92B2-EFE4311EE657}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

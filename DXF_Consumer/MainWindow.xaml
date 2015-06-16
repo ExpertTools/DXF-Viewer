@@ -1,0 +1,10 @@
+﻿<Window x:Class="DXF_Consumer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:dxf="clr-namespace:DXF_Viewer;assembly=DXF_Viewer"
+        Title="CONSUME" Height="47" Width="200">
+    <Grid>
+        <Button Content="Open ALOT" Click="ArtSearch"></Button>
+        <Button Content="Open" Click="OpenDxf" HorizontalAlignment="Left" VerticalAlignment="Bottom"></Button>
+    </Grid>
+</Window>
