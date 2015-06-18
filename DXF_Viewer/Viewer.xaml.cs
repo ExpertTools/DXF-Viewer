@@ -55,7 +55,6 @@ namespace DXF_Viewer
                 //Transforms the children on the canvas with scale and translate transform immediately
                 group.Children.Add(xform);
                 group.Children.Add(tt);
-
                 mainCanvas.RenderTransform = group;
                 vbxBorder.MouseWheel += mouseWheel;
                 vbxBorder.MouseMove += mouseMove;

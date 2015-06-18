@@ -9,11 +9,27 @@ using System.Windows.Media;
 using DXF.Extensions;
 using DXF.Entities;
 using DXF.GeneralInformation;
+using DXF.Util;
 
 namespace DXF_Viewer
 {
     class LwPolylineEntity : Entity
     {
+        bool closed  = true;
+        PolylineVertex[] vertices;
+        double thickness = .01;
+        double widthConstant = 0;
+
+        struct PolylineVertex
+        {
+            public Point lastVertex;
+            public Point vertex;
+            public double bWidth;
+            public double eWidth;
+            public double bulge;
+        }
+
+        enum readStatus { x, y, bulge, beginWidth, endWidth, seek };
 
         public LwPolylineEntity ()
         { }
@@ -24,7 +40,83 @@ namespace DXF_Viewer
 
         public override Entity parse(List<string> section)
         {
-            gatherCodesAllowMultiples(section);
+            gatherCodes(section);
+            getCommonCodes();
+
+            closed = getCode(" 70", 0) > 0;
+            thickness = getCode(" 39", thickness);
+            widthConstant = getCode(" 43", widthConstant);
+            vertices = new PolylineVertex[closed ? getCode(" 90", 2) + 1 : getCode(" 90", 2)];
+            //bulge = new double[getCode(" 90", 2)];
+
+            int i = 0;
+            while (!(section[i + 1].Equals(" 10") || section[i + 1].Equals(" 42"))) { i++; }
+
+            readStatus status = readStatus.seek;
+            int vertexCount = 0;
+            while(i < section.Count - 1)
+            {
+                switch(status)
+                {
+                    case readStatus.x:
+                        vertices[vertexCount].vertex.X = section[i].ConvertToDoubleWithCulture();
+                        if(vertexCount < vertices.Length - 1)
+                        {
+                            vertices[vertexCount + 1].lastVertex.X = vertices[vertexCount].vertex.X;
+                        }
+                        //vertexCount++;
+                        status = readStatus.seek;
+                        break;
+                    case readStatus.y:
+                        vertices[vertexCount].vertex.Y = section[i].ConvertToDoubleWithCulture();
+                        if (vertexCount < vertices.Length - 1)
+                        {
+                            vertices[vertexCount + 1].lastVertex.Y = vertices[vertexCount].vertex.Y;
+                        }
+                        vertexCount++;
+                        status = readStatus.seek;
+                        break;
+                    case readStatus.bulge:
+                        vertices[vertexCount ].bulge = section[i].ConvertToDoubleWithCulture();
+                        status = readStatus.seek;
+                        break;
+                    case readStatus.beginWidth:
+                        vertices[vertexCount - 1].bWidth = section[i].ConvertToDoubleWithCulture();
+                        status = readStatus.seek;
+                        break;
+                    case readStatus.endWidth:
+                        vertices[vertexCount - 1].eWidth = section[i].ConvertToDoubleWithCulture();
+                        status = readStatus.seek;
+                        break;
+                    case readStatus.seek:
+                        switch(section[i])
+                        {
+                            case " 10":
+                                status = readStatus.x;
+                                break;
+                            case " 20":
+                                status = readStatus.y;
+                                break;
+                            case " 40":
+                                status = readStatus.beginWidth;
+                                break;
+                            case " 41":
+                                status = readStatus.endWidth;
+                                break;
+                            case " 42":
+                                status = readStatus.bulge;
+                                break;
+                        }
+                        break;
+                }
+                i++;
+            }
+
+            if(closed)
+            {
+                vertices[vertices.Length - 1].vertex = vertices[0].vertex;
+            }
+
 
             return this;
         }
@@ -32,6 +124,37 @@ namespace DXF_Viewer
         public override Path draw()
         {
             Path path = new Path();
+            PathFigure figure = new PathFigure();
+            PathGeometry geometry = new PathGeometry();
+            GeometryGroup group = new GeometryGroup();
+            PathFigureCollection collection = new PathFigureCollection();
+
+            figure.StartPoint = ViewerHelper.mapToWPF(vertices[0].vertex, parent);
+
+            //for(int v = 1; v < vertices.Length; v++)
+            //{
+            //    if(ver != 0)
+            //    {
+            //        figure.Segments.Add(new ArcSegment(ViewerHelper.mapToWPF(vertices[v], parent),
+            //            new Size(calculateRadius(bulge[v - 1], vertices[v - 1], vertices[v]), calculateRadius(bulge[v-1], vertices[v-1], vertices[v])), 0,
+            //            Math.Abs(bulge[v - 1]) >= 1,
+            //            bulge[v - 1] > 0 ? SweepDirection.Counterclockwise : SweepDirection.Clockwise, true));
+            //    }
+            //    else
+            //    {
+            //        figure.Segments.Add(new LineSegment(vertices[v], true));
+            //    }
+
+            //}
+
+
+            figure.IsClosed = true;
+            collection.Add(figure);
+            geometry.Figures = collection;
+            path.Data = geometry;
+
+            path.StrokeThickness = thickness;
+            path.Stroke = new SolidColorBrush(ViewerHelper.getColor(layer.lineColor));
             return path;
         }
 

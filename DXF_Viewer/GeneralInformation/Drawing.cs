@@ -27,6 +27,10 @@ namespace DXF.GeneralInformation
                 Layer currentLayer = new Layer().parse(layer);
                 this.layers.Add(currentLayer.name.ToUpper(), currentLayer);
             }
+            if (!layers.ContainsKey("0"))
+            {
+                this.layers.Add("0", new Layer());
+            }
             header = new Header(file.header);
             foreach(string type in file.entities.Keys)
             {

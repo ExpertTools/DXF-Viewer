@@ -34,7 +34,7 @@ namespace DXF.Entities
                 case "LWPOLYLINE":
                     return new LwPolylineEntity(parent, viewer).parse(section);
                 case "POLYLINE":
-                    return new LwPolylineEntity(parent, viewer).parse(section);
+                    return new PolyLineEntity(parent, viewer).parse(section);
                 default:
                     throw new EntityNotSupportedException();
             }
