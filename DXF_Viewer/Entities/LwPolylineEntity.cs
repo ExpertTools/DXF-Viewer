@@ -17,7 +17,7 @@ namespace DXF_Viewer
     {
         bool closed  = true;
         PolylineVertex[] vertices;
-        double thickness = .01;
+        double thickness = .2;
         double widthConstant = 0;
 
         struct PolylineVertex
@@ -77,7 +77,14 @@ namespace DXF_Viewer
                         status = readStatus.seek;
                         break;
                     case readStatus.bulge:
-                        vertices[vertexCount ].bulge = section[i].ConvertToDoubleWithCulture();
+                        if(vertexCount == vertices.Length)
+                        {
+                            vertices[vertexCount - 1].bulge = section[i].ConvertToDoubleWithCulture();
+                        }
+                        else
+                        {
+                            vertices[vertexCount].bulge = section[i].ConvertToDoubleWithCulture();
+                        }
                         status = readStatus.seek;
                         break;
                     case readStatus.beginWidth:
@@ -131,24 +138,23 @@ namespace DXF_Viewer
 
             figure.StartPoint = ViewerHelper.mapToWPF(vertices[0].vertex, parent);
 
-            //for(int v = 1; v < vertices.Length; v++)
-            //{
-            //    if(ver != 0)
-            //    {
-            //        figure.Segments.Add(new ArcSegment(ViewerHelper.mapToWPF(vertices[v], parent),
-            //            new Size(calculateRadius(bulge[v - 1], vertices[v - 1], vertices[v]), calculateRadius(bulge[v-1], vertices[v-1], vertices[v])), 0,
-            //            Math.Abs(bulge[v - 1]) >= 1,
-            //            bulge[v - 1] > 0 ? SweepDirection.Counterclockwise : SweepDirection.Clockwise, true));
-            //    }
-            //    else
-            //    {
-            //        figure.Segments.Add(new LineSegment(vertices[v], true));
-            //    }
+            foreach(PolylineVertex vertex in vertices)
+            {
+                if (vertex.bulge == 0)
+                {
+                    figure.Segments.Add(new LineSegment(ViewerHelper.mapToWPF(vertex.vertex, parent), true));
+                }
+                else
+                {
+                    double radius = calculateRadius(vertex.bulge, vertex.lastVertex, vertex.vertex);
+                    Size size = new Size(radius, radius);
+                    figure.Segments.Add(new ArcSegment(ViewerHelper.mapToWPF(vertex.vertex, parent), size, 0,
+                       Math.Abs(vertex.bulge) >= 1, vertex.bulge > 0 ? SweepDirection.Counterclockwise : SweepDirection.Clockwise, true ));
+                }
+            }
 
-            //}
 
-
-            figure.IsClosed = true;
+            figure.IsClosed = closed;
             collection.Add(figure);
             geometry.Figures = collection;
             path.Data = geometry;

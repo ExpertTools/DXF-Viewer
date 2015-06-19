@@ -11,6 +11,9 @@ namespace DXF.GeneralInformation
 
         public List<List<string>> styles;
         public List<List<string>> layers;
+        public List<List<string>> blocks;
+        public List<List<string>> endBlocks;
+        public List<List<string>> blockRecords;
         public List<string> header;
         public Dictionary<string, List<List<string>>> entities;
 
@@ -21,6 +24,9 @@ namespace DXF.GeneralInformation
             layers = new List<List<string>>();
             header = new List<string>();
             entities = new Dictionary<string, List<List<string>>>();
+            blocks = new List<List<string>>();
+            endBlocks = new List<List<string>>();
+            blockRecords = new List<List<string>>();
 
             //Set up File Read
             StreamReader reader = new StreamReader(new FileStream(source, FileMode.Open, FileAccess.Read, FileShare.ReadWrite));
@@ -31,13 +37,7 @@ namespace DXF.GeneralInformation
 
                 if (line.Equals("AcDbLayerTableRecord"))
                 {
-                    List<string> entry = new List<string>();
-                    while (!line.Equals("  0"))
-                    {
-                        entry.Add(line);
-                        line = reader.ReadLine();
-                    }
-                    layers.Add(entry);
+                    layers.Add(readSection(reader, line));
                 }
                 //Construct Entity Section
                 if (line.Equals("ENTITIES"))
@@ -66,85 +66,62 @@ namespace DXF.GeneralInformation
                 //Construct Header Section
                 if(line.Equals("HEADER"))
                 { 
-                    while(!line.Equals("  0"))
-                    {
-                        header.Add(line);
-                        line = reader.ReadLine();
-                    }
-                    header.Add("  0");
+                    header = readSection(reader, line);
                 }
 
                 //Construct Style Section
                 if (line.Equals("AcDbTextStyleTableRecord"))
                 {
-                    List<string> entry = new List<string>();
-                    while (!line.Equals("  0"))
-                    {
-                        entry.Add(line);
-                        line = reader.ReadLine();
-                    }
-                    styles.Add(entry);
+                    styles.Add(readSection(reader, line));
                 }
-                line = reader.ReadLine();
-            }
+                
 
-        }
-
-        /// <summary>
-        /// Seeds the Entity Dictionary with Lists for all DXF Entity types
-        /// (DEPRECATED)
-        /// </summary>
-        private void seedEntities()
-        {
-            string[] entityTypes = 
-            {   "3DFACE","3DSOLID", "ACAD_PROXY_ENTITY", "ARC", "ARCALIGNEDTEXT", 
-                "ATTDEF", "ATTRIB", "BODY", "CIRCLE", "DIMENSION", "ELLIPSE", "HATCH",
-                "IMAGE", "INSERT", "LEADER", "LINE", "LWPOLYLINE", "MLINE", "MTEXT",
-                "OLEFRAME", "OLEFRAME2", "POINT", "POLYLINE", "RAY", "REGION", "RTEXT",
-                "SEQEND", "SHAPE", "SPLINE", "TEXT", "TOLERANCE", "TRACE", "VERTEX",
-                "VIEWPOINT", "WIPEOUT", "XLINE"};
-            foreach(string type in entityTypes)
-            {
-                this.entities.Add(type, new List<List<string>>());
-            }
-        }
-
-
-        // REFACTOR: this constructor should change to take in a source filename where the main loop is looking for EOF
-        public DXFFile(List<string> dxfFile)
-        {
-            styles = new List<List<string>>();
-
-            int i = 0;
-            while (i < dxfFile.Count - 1)
-            {
-                //Construct Layer Section
-
-                //Construct Entity Section
-
-                //Construct Header Section
-
-
-                //Construct Style Section
-                if (dxfFile[i].Equals("AcDbSymbolTable"))
+                //Block Records
+                if(line.Equals("BLOCK_RECORD"))
                 {
-                    while (!dxfFile[i].Equals("ENDTAB"))
+                    blockRecords.Add(readSection(reader, line));
+                }
+
+                //Construct Block Section
+                if(line.Equals("BLOCKS"))
+                {
+                    line = reader.ReadLine();
+                    while (true)
                     {
-                        if (dxfFile[i].Equals("AcDbTextStyleTableRecord"))
+                        if(line.Equals("BLOCK"))
                         {
                             List<string> entry = new List<string>();
-                            while (!dxfFile.Equals("  0"))
+                            while(!line.Equals("ENDBLK"))
                             {
-                                entry.Add(dxfFile[i]);
-                                i++;
+                                entry.Add(line);
+                                line = reader.ReadLine();
                             }
-                            styles.Add(entry);
+                            blocks.Add(entry);
                         }
-                        i++;
+                        if(line.Equals("ENDBLK"))
+                        {
+                            endBlocks.Add(readSection(reader, line));
+                        }
+                        line = reader.ReadLine();
+                        if (line.Equals("ENDSEC")) break;
                     }
                 }
-                i++;
+
+                line = reader.ReadLine();
             }
+        }
+
+        private List<string> readSection(StreamReader reader, string line)
+        {
+            List<string> entry = new List<string>();
+
+            while(!line.Equals("  0"))
+            {
+                entry.Add(line);
+                line = reader.ReadLine();
+            }
+            entry.Add("  0");
+            return entry;
         }
     }
 }
