@@ -7,7 +7,7 @@ using System.Collections;
 
 namespace DXF_Viewer
 {
-    class DrawOrder
+    class DrawOrder_dep
     {
         /// <summary>
         /// Determines the draw order of the entities to be drawn

@@ -18,7 +18,7 @@ namespace DXF_Viewer
         string layerName = "0";
         string insertHandle;
         int i = 0;
-        BlockInfo block = new BlockInfo();
+        BlockInfo_dep block = new BlockInfo_dep();
         List<List<string>> insertList = new List<List<string>>();
         List<List<string>> insertListFull = new List<List<string>>();
         List<string> tempList = new List<string>();

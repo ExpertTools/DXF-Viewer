@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace DXF_Viewer
 {
-    class BlockInfo
+    class BlockInfo_dep
     {
 
         List<List<string>> fullBlockList = new List<List<string>>();

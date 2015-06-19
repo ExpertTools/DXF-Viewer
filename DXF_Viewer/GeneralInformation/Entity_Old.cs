@@ -37,7 +37,7 @@ namespace DXF_Viewer
          //Creates the Lists to be used by each entity
 
          //used to match dimension ID to block records.
-         BlockInfo bi = new BlockInfo();
+         BlockInfo_dep bi = new BlockInfo_dep();
          List<List<String>> blockList = bi.getBlockInfo(blockFile);
 
          double tempX;

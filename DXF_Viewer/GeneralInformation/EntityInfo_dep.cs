@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DXF_Viewer
 {
-    class EntityInfo
+    class EntityInfo_dep
     {
         /// <summary>
         /// gets the information for each entity 
