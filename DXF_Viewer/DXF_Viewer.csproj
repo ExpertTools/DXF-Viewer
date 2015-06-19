@@ -62,28 +62,28 @@
     <Compile Include="Entities\SolidEntity.cs" />
     <Compile Include="Entities\TextEntity.cs" />
     <Compile Include="Extensions.cs" />
-    <Compile Include="GeneralInformation\BlockInfo.cs" />
-    <Compile Include="GeneralInformation\Drawing.cs" />
-    <Compile Include="GeneralInformation\DrawingInfo_dep.cs" />
-    <Compile Include="GeneralInformation\DrawingStyle.cs" />
-    <Compile Include="GeneralInformation\DrawOrder.cs" />
-    <Compile Include="GeneralInformation\DXFFile.cs" />
-    <Compile Include="GeneralInformation\Entity_Old.cs" />
-    <Compile Include="GeneralInformation\EntityInfo.cs" />
-    <Compile Include="GeneralInformation\Header.cs" />
-    <Compile Include="GeneralInformation\Layer.cs" />
-    <Compile Include="GeneralInformation\LayerInfo_dep.cs" />
-    <Compile Include="MainClasses\Blocks.cs" />
-    <Compile Include="MainClasses\DrawEntities.cs" />
-    <Compile Include="MainClasses\OpenFile.cs" />
+    <Compile Include="Deprecated\BlockInfo_dep.cs" />
+    <Compile Include="Model\Drawing.cs" />
+    <Compile Include="Deprecated\DrawingInfo_dep.cs" />
+    <Compile Include="Model\DrawingStyle.cs" />
+    <Compile Include="Deprecated\DrawOrder_dep.cs" />
+    <Compile Include="Parsing\DXFFile.cs" />
+    <Compile Include="Deprecated\Entity_Old.cs" />
+    <Compile Include="Deprecated\EntityInfo_dep.cs" />
+    <Compile Include="Model\Header.cs" />
+    <Compile Include="Model\Layer.cs" />
+    <Compile Include="Deprecated\LayerInfo_dep.cs" />
+    <Compile Include="Deprecated\Blocks_dep.cs" />
+    <Compile Include="Deprecated\DrawEntities_dep.cs" />
+    <Compile Include="Deprecated\OpenFile_dep.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TransformsEtc\AxisLength.cs" />
-    <Compile Include="TransformsEtc\ColorSorter.cs" />
-    <Compile Include="TransformsEtc\FindEndPoint.cs" />
-    <Compile Include="TransformsEtc\FindStartPoint.cs" />
-    <Compile Include="TransformsEtc\RotationAngle.cs" />
-    <Compile Include="TransformsEtc\SetLineType.cs" />
-    <Compile Include="TransformsEtc\TransformPoint.cs" />
+    <Compile Include="Deprecated\AxisLength_dep.cs" />
+    <Compile Include="Deprecated\ColorSorter_dep.cs" />
+    <Compile Include="Deprecated\FindEndPoint_dep.cs" />
+    <Compile Include="Deprecated\FindStartPoint_dep.cs" />
+    <Compile Include="Deprecated\RotationAngle_dep.cs" />
+    <Compile Include="Deprecated\SetLineType_dep.cs" />
+    <Compile Include="Deprecated\TransformPoint_dep.cs" />
     <Compile Include="Util\ViewerHelper.cs" />
     <Compile Include="Viewer.xaml.cs">
       <DependentUpon>Viewer.xaml</DependentUpon>
@@ -95,6 +95,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
