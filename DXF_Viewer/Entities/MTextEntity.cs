@@ -273,6 +273,10 @@ namespace DXF_Viewer
             return splitText;
         }
 
+        public override Path draw(InsertEntity insertion)
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }

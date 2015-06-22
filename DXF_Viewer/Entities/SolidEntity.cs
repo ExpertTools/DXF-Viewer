@@ -62,5 +62,33 @@ namespace DXF_Viewer
 
             return path;
         }
+
+        public override Path draw(InsertEntity insert)
+        {
+            //Add the offset from the composite entity
+            for(int i = 0; i < vertices.Length; i++)
+            {
+                vertices[i].X += insert.anchor.X;
+                vertices[i].Y += insert.anchor.Y;
+            }
+            //Draw the offset entity
+            Path path = this.draw();
+            //Revert the offset from the composite entity
+            for (int i = 0; i < vertices.Length; i++)
+            {
+                vertices[i].X -= insert.anchor.X;
+                vertices[i].Y -= insert.anchor.Y;
+            }
+
+            //Apply block level scale and rotation transforms
+            TransformGroup transforms = new TransformGroup();
+            transforms.Children.Add(path.RenderTransform);
+            transforms.Children.Add(new ScaleTransform(insert.xScale, insert.yScale));
+            transforms.Children.Add(new RotateTransform(insert.angle, insert.anchor.X, insert.anchor.Y));
+            path.RenderTransform = transforms;
+
+            //return the offset entity leaving the object unaltered
+            return path;
+        }
     }
 }

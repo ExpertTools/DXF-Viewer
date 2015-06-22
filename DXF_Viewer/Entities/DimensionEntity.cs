@@ -26,7 +26,7 @@ namespace DXF_Viewer
             DimensionType type = DimensionType.ROTATED; //70
             AttachmentPoint relativeTo = AttachmentPoint.TOP_LEFT; //71
             string measurementValue = ""; //42
-
+            int j = 0;
             j++;
             while(j <= listIn.Count -1)
             {

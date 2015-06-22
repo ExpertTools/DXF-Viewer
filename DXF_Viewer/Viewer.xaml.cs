@@ -99,7 +99,7 @@ namespace DXF_Viewer
         private void viewDXF(string source)
         {
             DXFFile fileRep = new DXFFile(source);
-            drawing = new Schematic(fileRep, this);
+            drawing = new Schematic(fileRep, this, mainCanvas);
             drawing.draw(mainCanvas);
         }
 

@@ -14,8 +14,9 @@ namespace DXF.GeneralInformation
         public Dictionary<string, Layer> layers = new Dictionary<string, Layer>();
         public Header header;
         public List<Entity> entities = new List<Entity>();
+        public Dictionary<string, Block> blocks = new Dictionary<string, Block>();
 
-        public Schematic(DXFFile file, Viewer viewer)
+        public Schematic(DXFFile file, Viewer viewer, Canvas canvas)
         {
             foreach(List<string> style in file.styles)
             {
@@ -45,6 +46,11 @@ namespace DXF.GeneralInformation
                         Console.WriteLine(ex.Message);
                     }
                 }
+            }
+            foreach(List<string> blockSection in file.blocks)
+            {
+                Block currentBlock = new Block(canvas).parse(blockSection, this, viewer);
+                blocks.Add(currentBlock.handle, currentBlock);
             }
         }
 

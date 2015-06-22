@@ -44,6 +44,7 @@ namespace DXF_Viewer
             double rotation = 0;
             int isClosed = 1;
             hatchGeometry.FillRule = FillRule.EvenOdd;
+            int j = 0;
             while (j < listIn.Count)
             {
                 //The name of the layer to be used for the hatch

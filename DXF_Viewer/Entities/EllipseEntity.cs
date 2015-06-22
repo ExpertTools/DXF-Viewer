@@ -62,5 +62,10 @@ namespace DXF_Viewer
             axisRatio = getCode(" 40", axisRatio);
             return this;
         }
+
+        public override Path draw(InsertEntity insertion)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

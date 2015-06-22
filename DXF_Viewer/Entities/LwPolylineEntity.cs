@@ -660,5 +660,10 @@ namespace DXF_Viewer
 
             return LwPolyPath;
         }
+
+        public override Path draw(InsertEntity insertion)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -134,5 +134,10 @@ namespace DXF_Viewer
             double y = arc.center.Y - (Math.Sin(arc.startAngle * (Math.PI / 180)) * arc.radius);
             return new Point(x, y);
         }
+
+        public override Path draw(InsertEntity insertion)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

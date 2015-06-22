@@ -45,7 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\ArcEntity.cs" />
-    <Compile Include="Entities\BlockEntities.cs" />
+    <Compile Include="Entities\Block.cs" />
     <Compile Include="Entities\CircleEntity.cs" />
     <Compile Include="Entities\DimensionEntity.cs" />
     <Compile Include="Entities\EllipseEntity.cs" />
@@ -63,7 +63,7 @@
     <Compile Include="Entities\TextEntity.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Deprecated\BlockInfo_dep.cs" />
-    <Compile Include="Model\Drawing.cs" />
+    <Compile Include="Model\Schematic.cs" />
     <Compile Include="Deprecated\DrawingInfo_dep.cs" />
     <Compile Include="Model\DrawingStyle.cs" />
     <Compile Include="Deprecated\DrawOrder_dep.cs" />

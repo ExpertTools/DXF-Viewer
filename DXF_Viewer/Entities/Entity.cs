@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Shapes;
+using System.Windows;
 
 namespace DXF.Entities
 {
@@ -35,6 +36,8 @@ namespace DXF.Entities
                     return new LwPolylineEntity(parent, viewer).parse(section);
                 case "POLYLINE":
                     return new PolyLineEntity(parent, viewer).parse(section);
+                case "INSERT":
+                    return new InsertEntity(parent, viewer).parse(section);
                 default:
                     throw new EntityNotSupportedException();
             }
@@ -162,6 +165,7 @@ namespace DXF.Entities
 
         public abstract Entity parse(List<string> section);
         public abstract Path draw();
+        public abstract Path draw(InsertEntity insertion);
 
     }
 }

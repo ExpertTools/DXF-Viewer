@@ -58,5 +58,10 @@ namespace DXF_Viewer
             }
             return this;
         }
+
+        public override Path draw(InsertEntity insertion)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

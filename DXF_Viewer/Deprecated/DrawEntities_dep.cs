@@ -46,6 +46,7 @@ namespace DXF_Viewer
             //DrawingInfo drawing = new DrawingInfo(xOffsetIn, yOffsetIn, minY, minX, height, layerListIn);
             
             layerList = layerListIn;
+            int j = 0;
             while (j < shapeList.Count)
             {
                 //if the entity is an arc it will get the arc path and make entity path equal that path
