@@ -165,7 +165,7 @@ namespace DXF.Entities
 
         public abstract Entity parse(List<string> section);
         public abstract Path draw();
-        public abstract Path draw(InsertEntity insertion);
+        public abstract Path draw(InsertEntity insert);
 
     }
 }

@@ -81,11 +81,7 @@ namespace DXF_Viewer
             }
 
             //Apply block level scale and rotation transforms
-            TransformGroup transforms = new TransformGroup();
-            transforms.Children.Add(path.RenderTransform);
-            transforms.Children.Add(new ScaleTransform(insert.xScale, insert.yScale));
-            transforms.Children.Add(new RotateTransform(insert.angle, insert.anchor.X, insert.anchor.Y));
-            path.RenderTransform = transforms;
+            path.RenderTransform = insert.getTransforms(path.RenderTransform);
 
             //return the offset entity leaving the object unaltered
             return path;

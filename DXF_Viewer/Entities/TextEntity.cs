@@ -90,9 +90,21 @@ namespace DXF_Viewer
             return this;
         }
 
-        public override Path draw(InsertEntity insertion)
+        public override Path draw(InsertEntity insert)
         {
-            throw new NotImplementedException();
+            start.X += insert.anchor.X;
+            start.Y += insert.anchor.Y;
+            purePosition.X += insert.anchor.X;
+            purePosition.Y += insert.anchor.Y;
+
+            Path path = draw();
+
+            start.X -= insert.anchor.X;
+            start.Y -= insert.anchor.Y;
+            purePosition.X -= insert.anchor.X;
+            purePosition.Y -= insert.anchor.Y;
+
+            return path;
         }
     }
 }

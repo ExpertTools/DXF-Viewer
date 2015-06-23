@@ -50,7 +50,7 @@ namespace DXF.GeneralInformation
             foreach(List<string> blockSection in file.blocks)
             {
                 Block currentBlock = new Block(canvas).parse(blockSection, this, viewer);
-                blocks.Add(currentBlock.handle, currentBlock);
+                blocks.Add(currentBlock.name, currentBlock);
             }
         }
 

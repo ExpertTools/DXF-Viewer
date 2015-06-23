@@ -8,6 +8,8 @@ using DXF.Extensions;
 using DXF.Entities;
 using System.Windows.Shapes;
 using DXF.GeneralInformation;
+using System.Windows.Media;
+using DXF.Util;
 
 namespace DXF_Viewer
 {
@@ -27,16 +29,28 @@ namespace DXF_Viewer
             : base(parent, viewer)
         { }
 
-
+        // Needs to be thought out
         public override Path draw()
         {
             parent.blocks[block].draw(this);
             return new Path();
         }
 
+        // NYI
         public override Path draw(InsertEntity insert)
         {
-            return draw();
+
+            anchor.X += insert.anchor.X;
+            anchor.Y += insert.anchor.Y;
+
+            Path path = draw();
+
+            anchor.X -= insert.anchor.X;
+            anchor.Y -= insert.anchor.Y;
+
+            path.RenderTransform = insert.getTransforms(path.RenderTransform);
+
+            return path;
         }
 
         public override Entity parse(List<string> section)
@@ -52,6 +66,16 @@ namespace DXF_Viewer
             angle = getCode(" 50", angle);
 
             return this;
+        }
+
+
+        public TransformGroup getTransforms(Transform existingTransforms)
+        {
+            TransformGroup transforms = new TransformGroup();
+            transforms.Children.Add(existingTransforms);
+            transforms.Children.Add(new ScaleTransform(xScale, yScale, ViewerHelper.mapToWPF(anchor, parent).X, ViewerHelper.mapToWPF(anchor, parent).Y));
+            transforms.Children.Add(new RotateTransform(-angle, ViewerHelper.mapToWPF(anchor, parent).X, ViewerHelper.mapToWPF(anchor, parent).Y));
+            return transforms;
         }
     }
 }

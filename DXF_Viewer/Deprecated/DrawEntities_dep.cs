@@ -88,7 +88,7 @@ namespace DXF_Viewer
                 //if the entity is an lwPolyline it will get the lwPolyline path and make entity path equal that path
                 if (shapeList[j] == "LWPOLYLINE")
                 {
-                    EntityPath = lWPolyline.getInfo(shapeList, layerListIn, height, minX, minY, xOffsetIn, yOffsetIn);
+                    //EntityPath = lWPolyline.getInfo(shapeList, layerListIn, height, minX, minY, xOffsetIn, yOffsetIn);
                     j++;
                 }
                 

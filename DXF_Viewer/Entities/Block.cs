@@ -15,6 +15,7 @@ namespace DXF_Viewer
     class Block 
     {
         public string handle = "";
+        public string name = "";
         public string layer = "0";
         public Point anchor = new Point();
         public List<Entity> children = new List<Entity>();
@@ -43,6 +44,9 @@ namespace DXF_Viewer
                 if (section[i].Equals("  0")) break;
                 switch(section[i])
                 {
+                    case "  2":
+                        name = section[++i];
+                        break;
                     case "  5":
                         handle = section[++i];
                         break;
@@ -72,8 +76,14 @@ namespace DXF_Viewer
                     if (section[i].Equals("  0")) break;
                     i++;
                 }
-                children.Add(EntityFactory.makeEntity(type, entity, parent, viewer));
-
+                try
+                {
+                    children.Add(EntityFactory.makeEntity(type, entity, parent, viewer));
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.StackTrace);
+                }
             }
 
 

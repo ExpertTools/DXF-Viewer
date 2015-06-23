@@ -143,7 +143,8 @@ namespace DXF.Util
             colorList.Add(2, (Color)ColorConverter.ConvertFromString("#FFFF00"));
             colorList.Add(3, (Color)ColorConverter.ConvertFromString("#00FF00"));
             colorList.Add(4, (Color)ColorConverter.ConvertFromString("#00FFFF"));
-            colorList.Add(5, (Color)ColorConverter.ConvertFromString("#0000FF"));
+            // Changed #5 from #0000FF to #00CCFF to make it easier to read on black 
+            colorList.Add(5, (Color)ColorConverter.ConvertFromString("#00CCFF"));
             colorList.Add(6, (Color)ColorConverter.ConvertFromString("#FF00FF"));
             colorList.Add(7, (Color)ColorConverter.ConvertFromString("#FFFFFF"));
             colorList.Add(8, (Color)ColorConverter.ConvertFromString("#414141"));
