@@ -64,7 +64,6 @@ namespace DXF_Viewer
                         {
                             vertices[vertexCount + 1].lastVertex.X = vertices[vertexCount].vertex.X;
                         }
-                        //vertexCount++;
                         status = readStatus.seek;
                         break;
                     case readStatus.y:

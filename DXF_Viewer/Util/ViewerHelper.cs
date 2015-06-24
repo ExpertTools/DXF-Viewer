@@ -33,7 +33,13 @@ namespace DXF.Util
             wpfPoint.Y = drawing.height - (target.Y - drawing.yMin) + 0.5;
             return wpfPoint;
         }
-
+        /// <summary>
+        ///  Maps the DXF coordinate to WPF coordinate space. The DXF uses a standard quadrant system where (+x, +y) is Northeast whereas in WPF (+x, +y) is in the Southeast.
+        ///  The information needed to perform the translation without using a flip (to prevent problems with text entities) is gathered in the header section of the DXF file.
+        /// </summary>
+        /// <param name="target"> The point to be mapped from DXF system to WPF system. </param>
+        /// <param name="drawing"> The Schematic that contains the size of the canvas/drawing needed to translate the point without a scale transform.</param>
+        /// <returns> A Point with coordinates in the WPF coordinate space. </returns>
         public static Point mapToWPF(Point target, Schematic drawing)
         {
             Point wpfPoint = new Point();
