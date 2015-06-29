@@ -11,13 +11,13 @@ using System.Windows.Shapes;
 
 namespace DXF.Viewer.Entities
 {
-    class EllipseEntity : Entity
+    class Ellipse : Entity
     {
         Point center = new Point(0,0);
         Point end = new Point(0,0);
         double axisRatio = 1;
 
-        public EllipseEntity(Schematic drawing, Viewer topLevelViewer)
+        public Ellipse(Schematic drawing, Viewer topLevelViewer)
             : base(drawing, topLevelViewer)
         {
         }
@@ -62,7 +62,7 @@ namespace DXF.Viewer.Entities
             return this;
         }
 
-        public override Path draw(InsertEntity insert)
+        public override Path draw(Insert insert)
         {
             center.X += insert.anchor.X;
             center.Y += insert.anchor.Y;

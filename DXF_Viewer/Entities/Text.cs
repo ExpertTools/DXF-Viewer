@@ -10,7 +10,7 @@ using DXF.Viewer.Util;
 
 namespace DXF.Viewer.Entities
 {
-    class TextEntity : Entity
+    class Text : Entity
     {
         public enum Alignment { Left, Center, Right, Aligned, Middle, Fit, BLeft, BCenter, BRight, MLeft, MCenter, MRight, TLeft, TCenter, TRight, Invalid };
 
@@ -29,7 +29,7 @@ namespace DXF.Viewer.Entities
         int alignmentColIndex = 0;
         DrawingStyle style;
 
-        public TextEntity(Schematic drawing, Viewer topLevelViewer)
+        public Text(Schematic drawing, Viewer topLevelViewer)
             : base(drawing, topLevelViewer)
         { }
 
@@ -88,7 +88,7 @@ namespace DXF.Viewer.Entities
             return this;
         }
 
-        public override Path draw(InsertEntity insert)
+        public override Path draw(Insert insert)
         {
             start.X += insert.anchor.X;
             start.Y += insert.anchor.Y;

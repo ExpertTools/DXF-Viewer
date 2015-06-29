@@ -25,7 +25,7 @@ namespace DXF.Viewer.Model
             this.canvas = canvas;
         }
         
-        public Block draw(InsertEntity insertion)
+        public Block draw(Insert insertion)
         {
             foreach(Entity child in children)
             {

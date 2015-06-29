@@ -12,7 +12,7 @@ using DXF.Extensions;
 namespace DXF.Viewer.Entities
 {
    
-    class HatchEntity 
+    class Hatch 
     {
         /*
         /// <summary>

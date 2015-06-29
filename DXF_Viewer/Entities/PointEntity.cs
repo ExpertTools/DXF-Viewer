@@ -22,7 +22,7 @@ namespace DXF.Viewer.Entities
 
         public override Path draw()
         {
-            Path path = new CircleEntity(this).draw();
+            Path path = new Circle(this).draw();
             path.Stroke = Brushes.White;
             path.Fill = Brushes.White;
             return path;
@@ -57,7 +57,7 @@ namespace DXF.Viewer.Entities
             return this;
         }
 
-        public override Path draw(InsertEntity insert)
+        public override Path draw(Insert insert)
         {
             location.X += insert.anchor.X;
             location.Y += insert.anchor.Y;

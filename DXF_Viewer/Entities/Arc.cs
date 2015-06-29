@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 
 namespace DXF.Viewer.Entities
 {
-    class ArcEntity : Entity
+    class Arc : Entity
     {
 
         Point center = new Point(0, 0);
@@ -25,12 +25,12 @@ namespace DXF.Viewer.Entities
         double radius = 0;
         double rotation = 0;
 
-        public ArcEntity()
+        public Arc()
             : base()
         {
         }
 
-        public ArcEntity(Point center, double startAngle,
+        public Arc(Point center, double startAngle,
                             double endAngle, double radius, double rotation,
                             Layer layer, Schematic parent, Viewer viewer)
             : base(parent, viewer, layer)
@@ -42,7 +42,7 @@ namespace DXF.Viewer.Entities
             this.rotation = rotation;
         }
 
-        public ArcEntity(Schematic drawing, Viewer topLevelViewer)
+        public Arc(Schematic drawing, Viewer topLevelViewer)
             : base(drawing, topLevelViewer)
         {
         }
@@ -105,7 +105,7 @@ namespace DXF.Viewer.Entities
         /// </summary>
         /// <param name="arc">The DXF ArcEntity object to evaluate</param>
         /// <returns>Boolean for IsLargeArc</returns>
-        public static bool checkArcSize(ArcEntity arc)
+        public static bool checkArcSize(Arc arc)
         {
             double angleDiff = arc.endAngle - arc.startAngle;
             return !((angleDiff > 0 && angleDiff <= 180) || angleDiff <= -180);
@@ -115,7 +115,7 @@ namespace DXF.Viewer.Entities
         /// </summary>
         /// <param name="arc">The DXF ArcEntity object to evaluate</param>
         /// <returns>Point with values of the arc end point.</returns>
-        public static Point calcEndPoint(ArcEntity arc)
+        public static Point calcEndPoint(Arc arc)
         {
             double x = (Math.Cos(arc.endAngle * (Math.PI / 180)) * arc.radius) + arc.center.X;
             double y = arc.center.Y - (Math.Sin(arc.endAngle * (Math.PI / 180)) * arc.radius);
@@ -127,14 +127,14 @@ namespace DXF.Viewer.Entities
         /// </summary>
         /// <param name="arc">The DXF ArcEntity object to evaluate</param>
         /// <returns>Point with values of the arc start point.</returns>
-        public static Point calcStartPoint(ArcEntity arc)
+        public static Point calcStartPoint(Arc arc)
         {
             double x = (Math.Cos(arc.startAngle * (Math.PI / 180)) * arc.radius) + arc.center.X;
             double y = arc.center.Y - (Math.Sin(arc.startAngle * (Math.PI / 180)) * arc.radius);
             return new Point(x, y);
         }
 
-        public override Path draw(InsertEntity insert)
+        public override Path draw(Insert insert)
         {
             center.X += insert.anchor.X;
             center.Y += insert.anchor.Y;

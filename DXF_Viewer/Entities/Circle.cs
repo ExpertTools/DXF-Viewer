@@ -10,24 +10,24 @@ using DXF.Viewer.Util;
 
 namespace DXF.Viewer.Entities
 {
-    class CircleEntity : Entity
+    class Circle : Entity
     {
         Point center = new Point(0,0);
         double radius = 0;
 
-        public CircleEntity(Schematic drawing, Viewer topLevelViewer)
+        public Circle(Schematic drawing, Viewer topLevelViewer)
             : base(drawing, topLevelViewer)
         {
         }
 
-        public CircleEntity(Schematic drawing, Viewer topLevelViewer, Point center, double radius)
+        public Circle(Schematic drawing, Viewer topLevelViewer, Point center, double radius)
             : base(drawing, topLevelViewer)
         {
             this.center = center;
             this.radius = radius;
         }
 
-        public CircleEntity(PointEntity point)
+        public Circle(PointEntity point)
             :base (point.parent, point.viewer)
         {
             this.center = point.location;
@@ -75,7 +75,7 @@ namespace DXF.Viewer.Entities
             return this;
         }
 
-        public override Path draw(InsertEntity insert)
+        public override Path draw(Insert insert)
         {
             center.X += insert.anchor.X;
             center.Y += insert.anchor.Y;

@@ -12,11 +12,11 @@ using DXF.Viewer.Util;
 
 namespace DXF.Viewer.Entities
 {
-    class SolidEntity : Entity
+    class Solid : Entity
     {
         Point[] vertices = new Point[4];
 
-        public SolidEntity(Schematic drawing, Viewer viewer)
+        public Solid(Schematic drawing, Viewer viewer)
             : base(drawing, viewer)
         {
         }
@@ -62,7 +62,7 @@ namespace DXF.Viewer.Entities
             return path;
         }
 
-        public override Path draw(InsertEntity insert)
+        public override Path draw(Insert insert)
         {
             //Add the offset from the composite entity
             for(int i = 0; i < vertices.Length; i++)

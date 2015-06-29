@@ -13,7 +13,7 @@ using DXF.Viewer.Util;
 namespace DXF.Viewer.Entities
 {
 
-    class InsertEntity : Entity
+    class Insert : Entity
     {
         public string block = "";
         public Point anchor = new Point(0, 0);
@@ -21,10 +21,10 @@ namespace DXF.Viewer.Entities
         public double yScale = 1;
         public double angle = 0;
 
-        public InsertEntity()
+        public Insert()
         { }
 
-        public InsertEntity(Schematic parent, Viewer viewer)
+        public Insert(Schematic parent, Viewer viewer)
             : base(parent, viewer)
         { }
 
@@ -34,7 +34,7 @@ namespace DXF.Viewer.Entities
             return new Path();
         }
 
-        public override Path draw(InsertEntity insert)
+        public override Path draw(Insert insert)
         {
 
             anchor.X += insert.anchor.X;

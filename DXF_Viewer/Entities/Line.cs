@@ -16,12 +16,12 @@ using DXF.Viewer.Util;
 
 namespace DXF.Viewer.Entities
 {
-    class LineEntity : Entity
+    class Line : Entity
     {
         Point start = new Point(0,0);
         Point end = new Point(0,0);
 
-        public LineEntity(Schematic drawing, Viewer topLevelViewer)
+        public Line(Schematic drawing, Viewer topLevelViewer)
             :base(drawing, topLevelViewer)
         {
         }
@@ -68,7 +68,7 @@ namespace DXF.Viewer.Entities
             return path;
         }
 
-        public override Path draw(InsertEntity insert)
+        public override Path draw(Insert insert)
         {
             start.X += insert.anchor.X;
             start.Y += insert.anchor.Y;

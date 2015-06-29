@@ -27,29 +27,29 @@ namespace DXF.Viewer.Entities
             switch(type)
             {
                 case "ARC":
-                    return new ArcEntity(parent, viewer).parse(section);
+                    return new Arc(parent, viewer).parse(section);
                 case "CIRCLE":
-                    return new CircleEntity(parent, viewer).parse(section);
+                    return new Circle(parent, viewer).parse(section);
                 case "ELLIPSE":
-                    return new EllipseEntity(parent, viewer).parse(section);
+                    return new Ellipse(parent, viewer).parse(section);
                 case "LINE":
-                    return new LineEntity(parent, viewer).parse(section);
+                    return new Line(parent, viewer).parse(section);
                 case "POINT":
                     return new PointEntity(parent, viewer).parse(section);
                 case "TEXT":
-                    return new TextEntity(parent, viewer).parse(section);
+                    return new Text(parent, viewer).parse(section);
                 case "SOLID":
-                    return new SolidEntity(parent, viewer).parse(section);
+                    return new Solid(parent, viewer).parse(section);
                 case "MTEXT":
-                    return new MTextEntity(parent, viewer).parse(section);
+                    return new MText(parent, viewer).parse(section);
                 case "LWPOLYLINE":
-                    return new LwPolylineEntity(parent, viewer).parse(section);
+                    return new LwPolyline(parent, viewer).parse(section);
                 case "POLYLINE":
-                    return new PolyLineEntity(parent, viewer).parse(section);
+                    return new PolyLine(parent, viewer).parse(section);
                 case "INSERT":
-                    return new InsertEntity(parent, viewer).parse(section);
+                    return new Insert(parent, viewer).parse(section);
                 case "LEADER":
-                    return new LeaderEntity(parent, viewer).parse(section);
+                    return new Leader(parent, viewer).parse(section);
                 default:
                     throw new EntityNotSupportedException();
             }
@@ -228,7 +228,7 @@ namespace DXF.Viewer.Entities
         /// </summary>
         /// <param name="insert">The InsertEntity that invoked the draw method of the Block object.</param>
         /// <returns>The Path for and Entity that has been adjusted by the translations and transformations specified by the passed InsertEntity. </returns>
-        public abstract Path draw(InsertEntity insert);
+        public abstract Path draw(Insert insert);
 
     }
 }

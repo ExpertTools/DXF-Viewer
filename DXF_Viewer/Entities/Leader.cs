@@ -12,7 +12,7 @@ using DXF.Viewer.Util;
 
 namespace DXF.Viewer.Entities
 {
-    class LeaderEntity : Entity
+    class Leader : Entity
     {
         Point[] vertices;
         bool arrow = false;
@@ -23,7 +23,7 @@ namespace DXF.Viewer.Entities
         enum readStatus { x, y, seek };
 
 
-        public LeaderEntity (Schematic parent, Viewer viewer)
+        public Leader (Schematic parent, Viewer viewer)
             : base (parent, viewer)
         {
         }
@@ -56,7 +56,7 @@ namespace DXF.Viewer.Entities
             return path;
         }
 
-        public override Path draw(InsertEntity insert)
+        public override Path draw(Insert insert)
         {
             return draw();
         }

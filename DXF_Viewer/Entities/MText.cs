@@ -14,7 +14,7 @@ using DXF.Viewer.Util;
 
 namespace DXF.Viewer.Entities
 {
-    class MTextEntity : Entity
+    class MText : Entity
     {
         string styleName = "STANDARD";
         string text = "";
@@ -27,10 +27,10 @@ namespace DXF.Viewer.Entities
         double angle = 0;
         DrawingStyle style;
 
-        public MTextEntity()
+        public MText()
         { }
         
-        public MTextEntity(Schematic drawing, Viewer topLevelViewer)
+        public MText(Schematic drawing, Viewer topLevelViewer)
             : base (drawing, topLevelViewer)
         { }
 
@@ -80,7 +80,7 @@ namespace DXF.Viewer.Entities
             return path;
         }
 
-        public override Path draw(InsertEntity insert)
+        public override Path draw(Insert insert)
         {
             end.X += insert.anchor.X;
             end.Y += insert.anchor.Y;

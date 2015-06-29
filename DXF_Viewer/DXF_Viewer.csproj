@@ -44,24 +44,24 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\ArcEntity.cs" />
-    <Compile Include="Entities\LeaderEntity.cs" />
+    <Compile Include="Entities\Arc.cs" />
+    <Compile Include="Entities\Leader.cs" />
     <Compile Include="Model\Block.cs" />
-    <Compile Include="Entities\CircleEntity.cs" />
-    <Compile Include="Entities\DimensionEntity.cs" />
-    <Compile Include="Entities\EllipseEntity.cs" />
+    <Compile Include="Entities\Circle.cs" />
+    <Compile Include="Entities\Dimension.cs" />
+    <Compile Include="Entities\Ellipse.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\EntityComposite.cs" />
     <Compile Include="Entities\EntityNotSupportedException.cs" />
-    <Compile Include="Entities\HatchEntity.cs" />
-    <Compile Include="Entities\InsertEntity.cs" />
-    <Compile Include="Entities\LineEntity.cs" />
-    <Compile Include="Entities\LwPolylineEntity.cs" />
-    <Compile Include="Entities\MTextEntity.cs" />
+    <Compile Include="Entities\Hatch.cs" />
+    <Compile Include="Entities\Insert.cs" />
+    <Compile Include="Entities\Line.cs" />
+    <Compile Include="Entities\LwPolyline.cs" />
+    <Compile Include="Entities\MText.cs" />
     <Compile Include="Entities\PointEntity.cs" />
-    <Compile Include="Entities\PolyLineEntity.cs" />
-    <Compile Include="Entities\SolidEntity.cs" />
-    <Compile Include="Entities\TextEntity.cs" />
+    <Compile Include="Entities\PolyLine.cs" />
+    <Compile Include="Entities\Solid.cs" />
+    <Compile Include="Entities\Text.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Model\Schematic.cs" />
     <Compile Include="Model\DrawingStyle.cs" />

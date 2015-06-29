@@ -12,7 +12,7 @@ using DXF.Viewer.Util;
 
 namespace DXF.Viewer.Entities
 {
-    class LwPolylineEntity : Entity
+    class LwPolyline : Entity
     {
         bool closed  = true;
         PolylineVertex[] vertices;
@@ -30,10 +30,10 @@ namespace DXF.Viewer.Entities
 
         enum readStatus { x, y, bulge, beginWidth, endWidth, seek };
 
-        public LwPolylineEntity ()
+        public LwPolyline ()
         { }
 
-        public LwPolylineEntity (Schematic drawing, Viewer viewer)
+        public LwPolyline (Schematic drawing, Viewer viewer)
             : base(drawing, viewer)
         { }
 
@@ -175,7 +175,7 @@ namespace DXF.Viewer.Entities
             return (Math.Pow(chord / 2, 2) + Math.Pow(sag, 2)) / (2 * sag);
         }
        
-        public override Path draw(InsertEntity insert)
+        public override Path draw(Insert insert)
         {
 
             for(int i = 0; i < vertices.Length; i++)

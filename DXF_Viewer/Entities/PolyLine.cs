@@ -11,13 +11,13 @@ using DXF.Viewer.Model;
 
 namespace DXF.Viewer.Entities
 {
-    class PolyLineEntity : Entity
+    class PolyLine : Entity
     {
 
-        public PolyLineEntity()
+        public PolyLine()
         { }
 
-        public PolyLineEntity(Schematic drawing, Viewer topLevelViewer)
+        public PolyLine(Schematic drawing, Viewer topLevelViewer)
             : base(drawing, topLevelViewer)
         { }
 
@@ -373,7 +373,7 @@ namespace DXF.Viewer.Entities
             return path;
         }
         */
-        public override Path draw(InsertEntity insertion)
+        public override Path draw(Insert insertion)
         {
             throw new NotImplementedException();
         }
