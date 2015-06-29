@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using DXF.GeneralInformation;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,9 +15,10 @@ using System.Windows.Shapes;
 using Microsoft.Win32;
 using System.Windows.Media.Animation;
 using System.ComponentModel;
+using DXF.Viewer.Model;
+using DXF.Viewer.Parsing;
 
-
-namespace DXF_Viewer
+namespace DXF.Viewer
 {
     /// <summary>
     /// Interaction logic for Viewer.xaml

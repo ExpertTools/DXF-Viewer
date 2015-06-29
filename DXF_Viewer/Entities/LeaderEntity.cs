@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Shapes;
-using DXF_Viewer;
 using DXF.Extensions;
 using System.Windows;
-using DXF.GeneralInformation;
 using System.Windows.Media;
-using DXF.Util;
 using System.Windows.Data;
+using DXF.Viewer.Model;
+using DXF.Viewer.Util;
 
-namespace DXF.Entities
+namespace DXF.Viewer.Entities
 {
     class LeaderEntity : Entity
     {

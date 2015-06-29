@@ -1,7 +1,6 @@
-﻿using DXF.Entities;
-using DXF.Extensions;
-using DXF.GeneralInformation;
-using DXF.Util;
+﻿using DXF.Extensions;
+using DXF.Viewer.Model;
+using DXF.Viewer.Util;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -10,7 +9,7 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 
 
-namespace DXF_Viewer
+namespace DXF.Viewer.Entities
 {
     class EllipseEntity : Entity
     {
@@ -35,7 +34,7 @@ namespace DXF_Viewer
             geometry.RadiusY = geometry.RadiusX * axisRatio;
             //set up brush
             path.Stroke = new SolidColorBrush(ViewerHelper.getColor(layer.lineColor));
-            path.StrokeDashArray = new SetLineType().setLineType(layer.lineType);
+            path.StrokeDashArray = ViewerHelper.setLineType(layer.lineType);
             path.RenderTransformOrigin = geometry.Center;
             path.RenderTransform = new RotateTransform(ViewerHelper.calculateRotationAngle(end, center));
             //package wpf elements

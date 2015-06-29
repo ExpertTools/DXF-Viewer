@@ -5,12 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using DXF.Extensions;
-using DXF.Entities;
 using System.Windows.Controls;
 using System.Windows.Shapes;
-using DXF.GeneralInformation;
+using DXF.Viewer.Entities;
 
-namespace DXF_Viewer
+namespace DXF.Viewer.Model
 {
     class Block 
     {

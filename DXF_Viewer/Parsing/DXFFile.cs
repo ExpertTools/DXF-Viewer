@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace DXF.GeneralInformation
+namespace DXF.Viewer.Parsing
 {
     class DXFFile
     {

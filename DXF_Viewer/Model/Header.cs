@@ -7,7 +7,7 @@ using System.Windows;
 using DXF.Extensions;
 
 
-namespace DXF_Viewer
+namespace DXF.Viewer.Model
 {
     class HeaderVar
     {

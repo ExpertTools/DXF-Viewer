@@ -9,11 +9,12 @@ using System.Windows.Media;
 using DXF.Extensions;
 
 
-namespace DXF_Viewer
+namespace DXF.Viewer.Entities
 {
    
-    class HatchEntity : Entity_Old
+    class HatchEntity 
     {
+        /*
         /// <summary>
         /// This will get the hatch path as a collection of path figures
         /// </summary>
@@ -456,5 +457,6 @@ namespace DXF_Viewer
 
             return hatchFigure;
         }
+        */
     }
 }

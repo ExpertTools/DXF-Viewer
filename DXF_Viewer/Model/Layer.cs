@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace DXF.GeneralInformation
+namespace DXF.Viewer.Model
 {
     class Layer
     {

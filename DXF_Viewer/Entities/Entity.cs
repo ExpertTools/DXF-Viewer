@@ -1,14 +1,13 @@
-﻿using DXF.GeneralInformation;
-using DXF_Viewer;
-using DXF.Extensions;
+﻿using DXF.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Shapes;
 using System.Windows;
+using DXF.Viewer.Model;
 
-namespace DXF.Entities
+namespace DXF.Viewer.Entities
 {
     /// <summary>
     /// This factory class provides a singular way to turn a list of strings describing a DXF entity into the c# representation. 

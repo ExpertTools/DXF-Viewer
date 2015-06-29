@@ -9,11 +9,10 @@ using System.Windows.Media;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using DXF.Extensions;
-using DXF.GeneralInformation;
-using DXF.Entities;
-using DXF.Util;
+using DXF.Viewer.Model;
+using DXF.Viewer.Util;
 
-namespace DXF_Viewer
+namespace DXF.Viewer.Entities
 {
     class MTextEntity : Entity
     {

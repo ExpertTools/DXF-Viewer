@@ -5,12 +5,10 @@ using System.Windows.Shapes;
 using System.Windows.Media;
 using System.Globalization;
 using DXF.Extensions;
-using DXF.Entities;
-using DXF.GeneralInformation;
-using DXF.Util;
+using DXF.Viewer.Model;
+using DXF.Viewer.Util;
 
-
-namespace DXF_Viewer
+namespace DXF.Viewer.Entities
 {
     class TextEntity : Entity
     {

@@ -7,11 +7,9 @@ using System.Windows.Shapes;
 using System.Windows;
 using System.Windows.Media;
 using DXF.Extensions;
-using DXF.Entities;
-using DXF.GeneralInformation;
+using DXF.Viewer.Model;
 
-
-namespace DXF_Viewer
+namespace DXF.Viewer.Entities
 {
     class PointEntity : Entity
     {

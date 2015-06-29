@@ -1,4 +1,4 @@
-﻿using DXF.GeneralInformation;
+﻿using DXF.Viewer.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,10 +7,43 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Media;
 
-namespace DXF.Util
+namespace DXF.Viewer.Util
 {
     class ViewerHelper
     {
+
+
+        public static DoubleCollection setLineType(string lineType, double scale = 1.0)
+        {
+            DoubleCollection collection = new DoubleCollection();
+            //Set the collection to center
+            if (lineType == "CENTER")
+            {
+                collection.Add(9 * scale);
+                collection.Add(3 * scale);
+                collection.Add(3 * scale);
+                collection.Add(3 * scale);
+            }
+
+            //Sets the collection to hidden
+            else if (lineType == "HIDDEN2" || lineType == "HIDDEN")
+            {
+                collection.Add(3 * scale);
+                collection.Add(3 * scale);
+            }
+            //Sets the collection to continuous
+            else if (lineType == "CONTINUOUS")
+            {
+                collection.Add(1 * scale);
+                collection.Add(0);
+            }
+            //Returns the collection to set the line type
+            return collection;
+        }
+
+
+
+
         /// <summary>
         ///     Helper method to assist in mapping DXF style coordinates to WPF
         ///     coordinates.
@@ -27,13 +60,7 @@ namespace DXF.Util
             wpfPoint.Y = height - (target.Y - yMin) + 0.5;
             return wpfPoint;
         }
-        public static Point mapToWPF(Point target, DrawingInfo_dep drawing)
-        {
-            Point wpfPoint = new Point();
-            wpfPoint.X = target.X - drawing.xMin + 0.5;
-            wpfPoint.Y = drawing.height - (target.Y - drawing.yMin) + 0.5;
-            return wpfPoint;
-        }
+
         /// <summary>
         ///  Maps the DXF coordinate to WPF coordinate space. The DXF uses a standard quadrant system where (+x, +y) is Northeast whereas in WPF (+x, +y) is in the Southeast.
         ///  The information needed to perform the translation without using a flip (to prevent problems with text entities) is gathered in the header section of the DXF file.

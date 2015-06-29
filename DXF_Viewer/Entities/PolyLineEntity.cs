@@ -7,10 +7,9 @@ using System.Windows;
 using System.Windows.Shapes;
 using System.Windows.Media;
 using DXF.Extensions;
-using DXF.Entities;
-using DXF.GeneralInformation;
+using DXF.Viewer.Model;
 
-namespace DXF_Viewer
+namespace DXF.Viewer.Entities
 {
     class PolyLineEntity : Entity
     {
@@ -35,6 +34,8 @@ namespace DXF_Viewer
             Path path = new Path();
             return path;
         }
+
+        /*
 
         /// <summary>
         /// Gets the Path for the polyline Entity 
@@ -371,7 +372,7 @@ namespace DXF_Viewer
 
             return path;
         }
-
+        */
         public override Path draw(InsertEntity insertion)
         {
             throw new NotImplementedException();

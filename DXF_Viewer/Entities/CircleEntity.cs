@@ -5,12 +5,10 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Windows;
 using DXF.Extensions;
-using DXF.Entities;
-using DXF.GeneralInformation;
-using DXF.Util;
+using DXF.Viewer.Model;
+using DXF.Viewer.Util;
 
-
-namespace DXF_Viewer
+namespace DXF.Viewer.Entities
 {
     class CircleEntity : Entity
     {
@@ -50,7 +48,7 @@ namespace DXF_Viewer
 
             //set up brush
             path.Stroke = new SolidColorBrush(ViewerHelper.getColor(layer.lineColor));
-            path.StrokeDashArray = new SetLineType().setLineType(layer.lineType);
+            path.StrokeDashArray = ViewerHelper.setLineType(layer.lineType);
 
             //package wpf elements
             group.Children.Add(geometry);

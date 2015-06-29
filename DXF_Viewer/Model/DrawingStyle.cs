@@ -5,9 +5,9 @@ using System.Text;
 using DXF.Extensions;
 using System.Windows.Media;
 using System.Windows;
-using DXF.Util;
+using DXF.Viewer.Util;
 
-namespace DXF.GeneralInformation
+namespace DXF.Viewer.Model
 {
     class DrawingStyle
     {

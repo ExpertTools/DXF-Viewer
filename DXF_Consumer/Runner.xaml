@@ -1,7 +1,7 @@
 ﻿<Window x:Class="DXF_Consumer.Runner"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:dxf="clr-namespace:DXF_Viewer;assembly=DXF_Viewer"
+        xmlns:dxf="clr-namespace:DXF.Viewer;assembly=DXF_Viewer"
         Title="Runner" Height="300" Width="300">
     <Grid>
         <dxf:Viewer Name="main"></dxf:Viewer>

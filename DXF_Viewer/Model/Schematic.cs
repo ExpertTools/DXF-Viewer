@@ -1,12 +1,12 @@
-﻿using DXF.Entities;
-using DXF_Viewer;
+﻿using DXF.Viewer.Entities;
+using DXF.Viewer.Parsing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Controls;
 
-namespace DXF.GeneralInformation
+namespace DXF.Viewer.Model
 {
     class Schematic : EntityComposite
     {

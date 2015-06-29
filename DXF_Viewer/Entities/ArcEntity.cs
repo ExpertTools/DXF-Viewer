@@ -1,7 +1,6 @@
-﻿using DXF.Entities;
-using DXF.Extensions;
-using DXF.GeneralInformation;
-using DXF.Util;
+﻿using DXF.Extensions;
+using DXF.Viewer.Model;
+using DXF.Viewer.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +14,7 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 
 
-namespace DXF_Viewer
+namespace DXF.Viewer.Entities
 {
     class ArcEntity : Entity
     {
@@ -64,7 +63,7 @@ namespace DXF_Viewer
             
             //set up brush and color
             path.Stroke = new SolidColorBrush(ViewerHelper.getColor(layer.lineColor));
-            path.StrokeDashArray = new SetLineType().setLineType(layer.lineType);
+            path.StrokeDashArray = ViewerHelper.setLineType(layer.lineType);
             arc.SweepDirection = SweepDirection.Counterclockwise;
             //set arc parameters
             figure.StartPoint = start;

@@ -5,13 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using DXF.Extensions;
-using DXF.Entities;
 using System.Windows.Shapes;
-using DXF.GeneralInformation;
 using System.Windows.Media;
-using DXF.Util;
+using DXF.Viewer.Model;
+using DXF.Viewer.Util;
 
-namespace DXF_Viewer
+namespace DXF.Viewer.Entities
 {
 
     class InsertEntity : Entity

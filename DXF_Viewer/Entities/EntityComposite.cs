@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Controls;
 
-namespace DXF.Entities
+namespace DXF.Viewer.Entities
 {
     abstract class EntityComposite
     {
