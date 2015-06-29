@@ -49,6 +49,8 @@ namespace DXF.Entities
                     return new PolyLineEntity(parent, viewer).parse(section);
                 case "INSERT":
                     return new InsertEntity(parent, viewer).parse(section);
+                case "LEADER":
+                    return new LeaderEntity(parent, viewer).parse(section);
                 default:
                     throw new EntityNotSupportedException();
             }

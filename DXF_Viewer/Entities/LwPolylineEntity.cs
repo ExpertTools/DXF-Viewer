@@ -132,7 +132,6 @@ namespace DXF_Viewer
             Path path = new Path();
             PathFigure figure = new PathFigure();
             PathGeometry geometry = new PathGeometry();
-            GeometryGroup group = new GeometryGroup();
             PathFigureCollection collection = new PathFigureCollection();
 
             figure.StartPoint = ViewerHelper.mapToWPF(vertices[0].vertex, parent);

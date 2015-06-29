@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\ArcEntity.cs" />
+    <Compile Include="Entities\LeaderEntity.cs" />
     <Compile Include="Model\Block.cs" />
     <Compile Include="Entities\CircleEntity.cs" />
     <Compile Include="Entities\DimensionEntity.cs" />
