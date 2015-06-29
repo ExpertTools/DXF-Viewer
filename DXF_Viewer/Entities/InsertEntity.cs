@@ -20,7 +20,7 @@ namespace DXF_Viewer
         public Point anchor = new Point(0, 0);
         public double xScale = 1;
         public double yScale = 1;
-        public double angle = 1;
+        public double angle = 0;
 
         public InsertEntity()
         { }
@@ -29,25 +29,28 @@ namespace DXF_Viewer
             : base(parent, viewer)
         { }
 
-        // Needs to be thought out
         public override Path draw()
         {
             parent.blocks[block].draw(this);
             return new Path();
         }
 
-        // NYI
         public override Path draw(InsertEntity insert)
         {
 
             anchor.X += insert.anchor.X;
             anchor.Y += insert.anchor.Y;
+            xScale *= insert.xScale;
+            yScale *= insert.yScale;
+            angle -= insert.angle;
 
             Path path = draw();
 
             anchor.X -= insert.anchor.X;
             anchor.Y -= insert.anchor.Y;
-
+            xScale /= insert.xScale;
+            yScale /= insert.yScale;
+            angle += insert.angle;
             path.RenderTransform = insert.getTransforms(path.RenderTransform);
 
             return path;
