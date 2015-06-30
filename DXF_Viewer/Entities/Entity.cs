@@ -1,10 +1,7 @@
 ﻿using DXF.Extensions;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Shapes;
-using System.Windows;
 using DXF.Viewer.Model;
 
 namespace DXF.Viewer.Entities
@@ -197,6 +194,18 @@ namespace DXF.Viewer.Entities
             else
                 return defaultValue;
         }
+
+        public bool getCode(string code, bool defaultValue)
+        {
+            if (groupCode.ContainsKey(code))
+                return Convert.ToInt32(groupCode[code]) > 0;
+            else
+            {
+                return defaultValue;
+            }
+        }
+
+
         /// <summary>
         /// Helper method to fetch the common group codes for an entity. Will create the layer specified by the DXF entity's layer group code.
         /// If the entity overrides the layer's line color or line type, this method will set those values to be used over the layer's specified values.

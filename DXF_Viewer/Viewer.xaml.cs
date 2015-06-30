@@ -60,6 +60,7 @@ namespace DXF.Viewer
                 vbxBorder.MouseMove += mouseMove;
                 vbxBorder.MouseLeftButtonDown += mouseLeftButtonDown;
                 vbxBorder.MouseLeftButtonUp += mouseLeftButtonUp;
+                vbxBorder.SizeChanged += sizeChanged;
                 PreviewKeyDown += new KeyEventHandler(MainWindow_PreviewKeyDown);
                 
 
@@ -261,6 +262,19 @@ namespace DXF.Viewer
             start = e.GetPosition(mainCanvas);
         }
 
+        DateTime _lastSizeEvent = DateTime.UtcNow;
+        private void sizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            DateTime now = DateTime.UtcNow;
+            double areaChanged = Math.Sqrt(Math.Abs(e.NewSize.Height * e.NewSize.Width - e.PreviousSize.Width * e.PreviousSize.Height));
+            if(now.Subtract(_lastSizeEvent).TotalSeconds >= 1 && areaChanged > 200)
+            {
+                double viewArea = (double)this.Parent.GetValue(Viewbox.ActualHeightProperty) * (double)this.Parent.GetValue(Viewbox.ActualWidthProperty);
+                double areaRatio = (viewArea / drawing.header.area);
+                LineThickness = STARTING_LINE_THICKNESS / zoomScale / Math.Sqrt(areaRatio);
+                _lastSizeEvent = now;
+            }
+        }
 
         //Releases the mouse capture when the left button is released
         private void mouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -306,6 +320,7 @@ namespace DXF.Viewer
             bmpCopied.Render(image);
             Clipboard.SetImage(bmpCopied);
         }
+
 
         private double lineThickness = .3;
         public double LineThickness

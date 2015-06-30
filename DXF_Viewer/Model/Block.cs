@@ -81,12 +81,9 @@ namespace DXF.Viewer.Model
                 }
                 catch(Exception ex)
                 {
-                    Console.WriteLine(ex.StackTrace);
+                    //Console.WriteLine(ex.StackTrace);
                 }
             }
-
-
-
 
             return this;
         }

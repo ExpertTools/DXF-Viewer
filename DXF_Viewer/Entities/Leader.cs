@@ -58,7 +58,21 @@ namespace DXF.Viewer.Entities
 
         public override Path draw(Insert insert)
         {
-            return draw();
+            for(int i = 0; i < vertices.Length; i++)
+            {
+                vertices[i].X += insert.anchor.X;
+                vertices[i].Y += insert.anchor.X;
+            }
+
+            Path path = draw();
+
+            for (int i = 0; i < vertices.Length; i++)
+            {
+                vertices[i].X -= insert.anchor.X;
+                vertices[i].Y -= insert.anchor.X;
+            }
+
+            return path;
         }
 
         public override Entity parse(List<string> section)
@@ -67,8 +81,8 @@ namespace DXF.Viewer.Entities
             getCommonCodes();
 
             vertices = new Point[getCode(" 76", 2)];
-            arrow = getCode(" 71", 0) > 0;
-            hook = getCode(" 75", 0) > 0;
+            arrow = getCode(" 71", false);
+            hook = getCode(" 75", false);
             annotationReference = getCode("340", "");
 
             readStatus status = readStatus.seek;

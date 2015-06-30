@@ -30,9 +30,9 @@ namespace DXF.Viewer.Entities
         public Circle(PointEntity point)
             :base (point.parent, point.viewer)
         {
-            this.center = point.location;
-            this.radius = PointEntity.POINT_RADIUS;
-            this.layerName = point.layerName;
+            center = point.location;
+            radius = PointEntity.POINT_RADIUS;
+            layerName = point.layerName;
         }
 
         public override Path draw()
@@ -41,10 +41,11 @@ namespace DXF.Viewer.Entities
             Path path = new Path();
             EllipseGeometry geometry = new EllipseGeometry();
             GeometryGroup group = new GeometryGroup();
+
             //translate DXF coords to wpf
             geometry.Center = ViewerHelper.mapToWPF(this.center, this.parent);
-            geometry.RadiusX = this.radius;
-            geometry.RadiusY = this.radius;
+            geometry.RadiusX = radius;
+            geometry.RadiusY = radius;
 
             //set up brush
             path.Stroke = new SolidColorBrush(ViewerHelper.getColor(layer.lineColor));
@@ -56,7 +57,7 @@ namespace DXF.Viewer.Entities
 
             //set up line thickness binding
             Binding bind = new Binding();
-            bind.Source = this.viewer;
+            bind.Source = viewer;
             bind.Path = new PropertyPath("LineThickness");
             path.SetBinding(Path.StrokeThicknessProperty, bind);
 

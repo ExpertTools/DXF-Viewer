@@ -4,12 +4,8 @@ using DXF.Viewer.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
@@ -25,27 +21,12 @@ namespace DXF.Viewer.Entities
         double radius = 0;
         double rotation = 0;
 
-        public Arc()
-            : base()
-        {
-        }
-
-        public Arc(Point center, double startAngle,
-                            double endAngle, double radius, double rotation,
-                            Layer layer, Schematic parent, Viewer viewer)
-            : base(parent, viewer, layer)
-        {
-            this.center = center;
-            this.startAngle = startAngle;
-            this.endAngle = endAngle;
-            this.radius = radius;
-            this.rotation = rotation;
-        }
+        public Arc(): base()
+        { }
 
         public Arc(Schematic drawing, Viewer topLevelViewer)
             : base(drawing, topLevelViewer)
-        {
-        }
+        { }
 
         override public Path draw()
         {
