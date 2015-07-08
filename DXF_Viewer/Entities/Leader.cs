@@ -50,8 +50,10 @@ namespace DXF.Viewer.Entities
             bind.Source = viewer;
             bind.Path = new PropertyPath("LineThickness");
             path.SetBinding(Path.StrokeThicknessProperty, bind);
+            Brush brush = new SolidColorBrush(ViewerHelper.getColor(layer.lineColor));
+            path.Stroke = brush;
 
-            path.Stroke = new SolidColorBrush(ViewerHelper.getColor(layer.lineColor));
+            if(arrow) viewer.mainCanvas.Children.Add(getArrowPath(brush, bind));
 
             return path;
         }
@@ -81,7 +83,7 @@ namespace DXF.Viewer.Entities
             getCommonCodes();
 
             vertices = new Point[getCode(" 76", 2)];
-            arrow = getCode(" 71", false);
+            arrow = getCode(" 71", true);
             hook = getCode(" 75", false);
             annotationReference = getCode("340", "");
 
@@ -115,5 +117,81 @@ namespace DXF.Viewer.Entities
 
             return this;
         }
+
+        public Path getArrowPath(Brush brush, Binding bind)
+        {
+            Path path = new Path();
+            PathFigure figure = new PathFigure();
+            PathGeometry headGeo = new PathGeometry();
+            PathFigureCollection headCollection = new PathFigureCollection();
+
+            figure.StartPoint = ViewerHelper.mapToWPF(vertices[0], parent);
+
+            double arrowHeight = parent.header.vars["$DIMASZ"].groupCode[" 40"].ConvertToDoubleWithCulture();
+
+            Point b1 = new Point();
+            Point b2 = new Point();
+            b1.Y = vertices[0].Y + (arrowHeight / 6);
+            b2.Y = vertices[0].Y - (arrowHeight / 6);
+            b1.X = vertices[0].X + arrowHeight;
+            b2.X = vertices[0].X + arrowHeight;
+
+            figure.Segments.Add(new LineSegment(ViewerHelper.mapToWPF(b1, parent), true));
+            figure.Segments.Add(new LineSegment(ViewerHelper.mapToWPF(b2, parent), true));
+
+            figure.IsClosed = true;
+            figure.IsFilled = true;
+
+            headCollection.Add(figure);
+            headGeo.Figures = headCollection;
+            double rotation = getArrowRotation() * (180 / Math.PI);
+
+            headGeo.Transform = (new RotateTransform(-rotation,
+                ViewerHelper.mapToWPF(vertices[0], parent).X,
+                ViewerHelper.mapToWPF(vertices[0], parent).Y));
+
+            path.Data = headGeo;
+            path.Stroke = brush;
+            path.Fill = brush;
+            path.SetBinding(Path.StrokeThicknessProperty, bind);
+
+            return path;
+        }
+
+        public double getArrowRotation()
+        {
+            Point v1 = vertices[0];
+            Point v2 = vertices[1];
+
+            double top = v2.Y - v1.Y;
+            double bottom = v2.X - v1.X;
+      
+
+            double atan = Math.Atan(top / bottom);
+
+            if(bottom >= 0)
+            {
+                if(top >= 0)
+                {
+                    return atan;
+                }
+                else
+                {
+                    return -((2 * Math.PI) - atan);
+                }
+            }
+            else
+            {
+                if(top >= 0)
+                {
+                    return Math.PI - atan;
+                }
+                else
+                {
+                    return Math.PI + atan;
+                }
+            }
+        }
+
     }
 }
